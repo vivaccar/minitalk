@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 19:46:49 by vivaccar         ###   ########.fr       */
+/*   Created: 2024/02/03 18:17:40 by vivaccar          #+#    #+#             */
+/*   Updated: 2024/02/03 20:36:09 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
-void	handler(int signal)
+void	handlersig(int signal, siginfo_t *info, void *content)
 {
 	static int	i = 0;
 	static int	cur_char = 0;
@@ -28,13 +28,19 @@ void	handler(int signal)
 		write (1, &cur_char, 1);
 		i = 0;
 		cur_char = 0;
+		kill(info->si_pid, SIGUSR1);
 	}
 }
 
 int	main(void)
 {
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
+	struct sigaction	sa;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = &handlersig;
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("PROCESS PID: %i\n", getpid());
 	while (1)
 		pause();

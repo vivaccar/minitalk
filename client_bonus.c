@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 18:29:26 by vivaccar         ###   ########.fr       */
+/*   Created: 2024/02/03 18:17:53 by vivaccar          #+#    #+#             */
+/*   Updated: 2024/02/03 20:31:05 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
+
+void	handler(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("SIGNAL RECEIVED!\n");
+}
 
 void	send_msg(pid_t pid, char *str)
 {
@@ -42,6 +48,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 3)
 	{
+		signal(SIGUSR1, handler);
 		pid = (pid_t)ft_atoi(argv[1]);
 		send_msg(pid, argv[2]);
 	}
