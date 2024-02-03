@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/01/31 12:16:23 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/03 02:06:05 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 
 void	handler(int bit)
 {
-	ft_putstr_fd("Exiting the program, SIGUSR1 received!", 1);
-	exit(0);
+	if (bit == SIGUSR1)
+		ft_printf("SIGUSR1 RECEIVED!");
+	else
+		ft_printf("SIGUSR2 RECEIVED!");
 }
 
 int	main(void)
 {
-	int	pid;
-
+	struct sigaction sa;
+	
+	sa.sa_handler = &handler;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("PROCESS PID: %i\n", getpid());
-	signal(SIGUSR1, handler);
 	while (1)
 	{
 		pause();
