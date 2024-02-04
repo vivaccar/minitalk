@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:40 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/04 12:21:51 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/04 20:38:56 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	handlersig(int signal, siginfo_t *info, void *content)
 {
-	static int	i = 0;
-	static int	cur_char = 0;
-	int			bit;
+	static int				i = 0;
+	static int				cur_char = 0;
+	int						bit;
 	(void) content;
 
 	bit = 0;
@@ -29,8 +29,11 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 		write (1, &cur_char, 1);
 		i = 0;
 		cur_char = 0;
+		usleep(1);
 		kill(info->si_pid, SIGUSR1);
 	}
+/* 	if (cur_char == '\0')
+		kill(info->si_pid, SIGUSR2); */
 }
 
 int	main(void)
