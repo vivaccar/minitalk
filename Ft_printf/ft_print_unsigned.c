@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 17:29:54 by vivaccar          #+#    #+#             */
-/*   Updated: 2023/11/02 18:06:22 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/03 22:12:58 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	un_len(unsigned int n)
 	int	i;
 
 	i = 0;
-	if (n < 0)
-		i++;
 	if (n == 0)
 		return (1);
 	while (n != 0)
