@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 23:57:27 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/04 20:43:11 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+
+void	handler(int signal)
+{
+	(void) signal;
+}
+
 void	send_msg(pid_t pid, char *str)
 {
-	int		i;
-	int		j;
-	int		bit;
+	int					i;
+	int					j;
+	int					bit;
 	
 	i = 0;
 	while (str[i])
@@ -25,11 +31,18 @@ void	send_msg(pid_t pid, char *str)
 		while (j >= 0)
 		{
 			bit = (str[i] >> j) & 1;
+			usleep(1);
+			signal(SIGUSR1, handler);
 			if (bit == 0)
+			{
 				kill(pid, SIGUSR1);
+				pause();
+			}
 			else
+			{	
 				kill(pid, SIGUSR2);
-			usleep(200);
+				pause();
+			}
 			j--;
 		}
 		i++;
@@ -40,6 +53,7 @@ int	main(int argc, char **argv)
 {
 	pid_t	pid;
 
+	signal(SIGUSR1, handler);
 	if (argc == 3)
 	{
 		pid = (pid_t)ft_atoi(argv[1]);

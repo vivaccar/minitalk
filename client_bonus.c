@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:53 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 22:23:22 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/04 20:34:05 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void	handler(int signal)
 {
-	static int	received = 0;
-
-	if (received == 0)
-		ft_printf("SIGNAL RECEIVED BY THE SERVER!\n");
-	if (signal == SIGUSR1)
-		received = 1;
+	if (signal == SIGUSR2)
+		ft_printf("MESSAGE RECEIVED BY THE SERVER!");
 }
 
 void	send_msg(pid_t pid, char *str)
 {
-	int		i;
-	int		j;
-	int		bit;
+	int					i;
+	int					j;
+	int					bit;
 	
 	i = 0;
+	signal(SIGUSR1, handler);
+	signal(SIGUSR2, handler);	
 	while (str[i])
 	{
 		j = 7;
@@ -36,10 +34,15 @@ void	send_msg(pid_t pid, char *str)
 		{
 			bit = (str[i] >> j) & 1;
 			if (bit == 0)
+			{
 				kill(pid, SIGUSR1);
+				pause();
+			}
 			else
+			{	
 				kill(pid, SIGUSR2);
-			usleep(200);
+				pause();
+			}
 			j--;
 		}
 		i++;
@@ -52,7 +55,6 @@ int	main(int argc, char **argv)
 
 	if (argc == 3)
 	{
-		signal(SIGUSR1, handler);
 		pid = (pid_t)ft_atoi(argv[1]);
 		send_msg(pid, argv[2]);
 	}
