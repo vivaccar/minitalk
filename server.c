@@ -6,7 +6,7 @@
 /*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/04 20:36:26 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/04 21:15:40 by vivaccar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 		write (1, &cur_char, 1);
 		i = 0;
 		cur_char = 0;
-		usleep(1);
-		kill(info->si_pid, SIGUSR1);
 	}
+	usleep(1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
