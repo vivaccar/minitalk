@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:01:04 by vivaccar          #+#    #+#             */
-/*   Updated: 2023/11/03 15:33:11 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/03 22:15:07 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,7 @@ int	ft_print_hex(unsigned long long n, char type)
 
 	upper = "0123456789ABCDEF";
 	lower = "0123456789abcdef";
-	if (n < 0)
-	{
-		write(1, "-", 1);
-		return (ft_print_hex(-n, type) + 1);
-	}
-	else if (n < 16)
+	if (n < 16)
 	{
 		if (type == 'x')
 			return (ft_putchar(lower[n]));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 19:46:49 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/04 01:16:51 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ void	handler(int signal)
 
 int	main(void)
 {
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
-	ft_printf("PROCESS PID: %i\n", getpid());
+	struct sigaction	sa;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = &handler;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 }
