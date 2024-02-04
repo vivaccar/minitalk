@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:40 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/03 20:36:09 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/04 12:21:51 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 	static int	i = 0;
 	static int	cur_char = 0;
 	int			bit;
+	(void) content;
 
 	bit = 0;
 	if (signal == SIGUSR2)
