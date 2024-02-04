@@ -4,6 +4,8 @@ CLIENT	=	client.c
 OBJ_S	=	$(SERVER:.c=.o)
 OBJ_C	=	$(CLIENT:.c=.o)
 
+FLAGS	=	-Wall -Wextra -Werror
+
 SERVER_BONUS	=	server_bonus.c
 CLIENT_BONUS	=	client_bonus.c
 
@@ -23,18 +25,18 @@ PRINTFD	=	./Ft_printf
 all: $(NAME_S) $(NAME_C)
 
 $(NAME_S): $(PRINTFA) $(OBJ_S)
-	$(CC) $(OBJ_S) $(PRINTFA) -o $(NAME_S)
+	$(CC) $(FLAGS) $(OBJ_S) $(PRINTFA) -o $(NAME_S)
 
 $(NAME_C): $(PRINTFD) $(OBJ_C)
-	$(CC) $(OBJ_C) $(PRINTFA) -o $(NAME_C)
+	$(CC) $(FLAGS) $(OBJ_C) $(PRINTFA) -o $(NAME_C)
 
 bonus: $(NAME_SBONUS) $(NAME_CBONUS)
 
 $(NAME_SBONUS): $(PRINTFA) $(OBJ_BS)
-	$(CC) $(OBJ_BS) $(PRINTFA) -o $(NAME_SBONUS)
+	$(CC) $(FLAGS) $(OBJ_BS) $(PRINTFA) -o $(NAME_SBONUS)
 
 $(NAME_CBONUS): $(PRINTFA) $(OBJ_BC)
-	$(CC) $(OBJ_BC) $(PRINTFA) -o $(NAME_CBONUS)
+	$(CC) $(FLAGS) $(OBJ_BC) $(PRINTFA) -o $(NAME_CBONUS)
 
 clean:
 	rm -f $(OBJ_C)
