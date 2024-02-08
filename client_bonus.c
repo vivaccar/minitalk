@@ -6,14 +6,18 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:53 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/08 11:31:33 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/08 12:00:51 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
 
+int	received;
+
 void	handler(int signal)
 {
+	if (signal == SIGUSR1)
+		received = 1;
 	if (signal == SIGUSR2)
 	{	
 		ft_printf("MESSAGE RECEIVED BY THE SERVER!\n");
@@ -29,19 +33,16 @@ void	send_msg(pid_t pid, char c)
 	j = 7;
 	while (j >= 0)
 	{
+		received = 0;
 		signal(SIGUSR1, handler);
 		signal(SIGUSR2, handler);	
 		bit = (c >> j) & 1;
 		if (bit == 0)
-		{
 			kill(pid, SIGUSR1);
-			pause();
-		}
 		else
-		{	
 			kill(pid, SIGUSR2);
+		while (!received)
 			pause();
-		}
 		j--;
 	}
 }
