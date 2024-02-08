@@ -6,16 +6,18 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/08 11:47:36 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/08 11:54:13 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+int	received;
 
 void	handler(int signal)
 {
-	(void) signal;
+	if (signal == SIGUSR1)
+		received = 1;
 }
 
 void	send_msg(pid_t pid, char *str)
@@ -30,18 +32,15 @@ void	send_msg(pid_t pid, char *str)
 		j = 7;
 		while (j >= 0)
 		{
+			received = 0;
 			signal(SIGUSR1, handler);
-			bit = (str[i] >> j) & 1;
+			bit = (str[i] >> j) & 1;;
 			if (bit == 0)
-			{
 				kill(pid, SIGUSR1);
-				pause();
-			}
 			else
-			{	
 				kill(pid, SIGUSR2);
+			while (!received)
 				pause();
-			}
 			j--;
 		}
 		i++;
