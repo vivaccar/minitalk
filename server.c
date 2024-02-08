@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/04 21:15:40 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/08 10:59:32 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 		i = 0;
 		cur_char = 0;
 	}
-	usleep(1);
+	usleep(150);
 	kill(info->si_pid, SIGUSR1);
 }
 

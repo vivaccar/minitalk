@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivaccar <vivaccar@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:53 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/04 20:34:05 by vivaccar         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:05:03 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	handler(int signal)
 {
 	if (signal == SIGUSR2)
+	{	
 		ft_printf("MESSAGE RECEIVED BY THE SERVER!");
+		exit (0);
+	}
 }
 
 void	send_msg(pid_t pid, char *str)
