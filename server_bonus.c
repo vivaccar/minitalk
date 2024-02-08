@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:17:40 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/08 11:04:30 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/08 11:38:20 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,22 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 			kill(info->si_pid, SIGUSR2);
 		cur_char = 0;
 	}
-	usleep(300);
+	usleep(1);
 	kill(info->si_pid, SIGUSR1);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = &handlersig;
 	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
 	ft_printf("PROCESS PID: %i\n", getpid());
 	while (1)
+	{
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);	
 		pause();
+	}
 }
