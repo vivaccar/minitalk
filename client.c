@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/08 11:54:13 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/29 09:55:34 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	send_msg(pid_t pid, char *str)
 	int					bit;
 	
 	i = 0;
-	while (str[i])
+	while (1)
 	{
 		j = 7;
 		while (j >= 0)
@@ -44,6 +44,8 @@ void	send_msg(pid_t pid, char *str)
 			j--;
 		}
 		i++;
+		if (str[i - 1] == '\0')
+			break;
 	}
 }
 

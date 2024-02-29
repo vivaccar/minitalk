@@ -6,11 +6,64 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/08 11:57:32 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/02/29 10:04:43 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+t_message	*message;
+
+t_message	*new_node(char c)
+{
+	t_message	*new;
+	
+	new = malloc(sizeof(t_message));
+	if (!new)
+		return (NULL);
+	new->c = c;
+	new->next = NULL;
+	return (new);
+}
+
+void	append_node(t_message *new)
+{
+	t_message	*temp;
+
+	temp = message;
+	if (!message)
+		message = new;
+	else
+	{
+		while (temp->next)
+			temp = temp->next;
+		temp->next= new;
+	}
+}
+
+void	print_and_free()
+{
+	t_message	*temp;
+	t_message	*to_free;
+
+	temp = message;
+	
+	if (!message)
+		return ;
+	while (temp)
+	{
+		ft_printf("%c", temp->c);
+		temp = temp->next;
+	}
+	to_free = message;
+	while (to_free)
+	{
+		temp = to_free->next;
+		free(to_free);
+		to_free = temp;
+	}
+	message = NULL;
+}
 
 void	handlersig(int signal, siginfo_t *info, void *content)
 {
@@ -18,6 +71,7 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 	static int				cur_char = 0;
 	int						bit;
 	(void) content;
+	t_message				*new;
 
 	bit = 0;
 	if (signal == SIGUSR2)
@@ -26,7 +80,10 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 	i++;
 	if (i == 8)
 	{
-		write (1, &cur_char, 1);
+		new = new_node(cur_char);
+		append_node(new);
+		if (cur_char == 0)
+			print_and_free();
 		i = 0;
 		cur_char = 0;
 	}
@@ -38,6 +95,7 @@ int	main(void)
 {
 	struct sigaction	sa;
 
+	message = NULL;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = &handlersig;
 	sa.sa_flags = SA_SIGINFO;
