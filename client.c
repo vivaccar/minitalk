@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/29 09:55:34 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/03/07 13:14:53 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,15 @@ void	send_msg(pid_t pid, char *str)
 			signal(SIGUSR1, handler);
 			bit = (str[i] >> j) & 1;;
 			if (bit == 0)
-				kill(pid, SIGUSR1);
+			{
+				if (!kill(pid, SIGUSR1));
+					exit(0);
+			}
 			else
-				kill(pid, SIGUSR2);
+			{
+				if (!kill(pid, SIGUSR2));
+					exit(0);
+			}
 			while (!received)
 				pause();
 			j--;
