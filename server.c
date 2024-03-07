@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/02/29 10:04:43 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/03/07 13:03:54 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,19 @@ t_message	*new_node(char c)
 
 void	append_node(t_message *new)
 {
-	t_message	*temp;
+	t_message			*temp;
+	static t_message	*last_node = NULL;
 
 	temp = message;
 	if (!message)
+	{
 		message = new;
+		last_node = new;
+	}
 	else
 	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next= new;
+		last_node->next = new;
+		last_node = new;
 	}
 }
 
