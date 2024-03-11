@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:51:49 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/03/07 13:03:54 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/03/11 11:54:28 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	handlersig(int signal, siginfo_t *info, void *content)
 		i = 0;
 		cur_char = 0;
 	}
-	usleep(1);
 	kill(info->si_pid, SIGUSR1);
 }
 

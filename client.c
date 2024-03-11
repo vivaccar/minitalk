@@ -6,7 +6,7 @@
 /*   By: vinivaccari <vinivaccari@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:14:34 by vivaccar          #+#    #+#             */
-/*   Updated: 2024/03/07 13:14:53 by vinivaccari      ###   ########.fr       */
+/*   Updated: 2024/03/11 11:15:50 by vinivaccari      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	handler(int signal)
 {
 	if (signal == SIGUSR1)
 		received = 1;
+}
+
+void	ft_kill(int bit, pid_t pid)
+{
+	int	error;
+
+	if (bit == 0)
+		error = kill(pid, SIGUSR1);
+	else
+		error = kill(pid, SIGUSR2);
+	if (error == -1)
+		exit(0);
 }
 
 void	send_msg(pid_t pid, char *str)
@@ -35,16 +47,7 @@ void	send_msg(pid_t pid, char *str)
 			received = 0;
 			signal(SIGUSR1, handler);
 			bit = (str[i] >> j) & 1;;
-			if (bit == 0)
-			{
-				if (!kill(pid, SIGUSR1));
-					exit(0);
-			}
-			else
-			{
-				if (!kill(pid, SIGUSR2));
-					exit(0);
-			}
+			ft_kill(bit, pid);
 			while (!received)
 				pause();
 			j--;
