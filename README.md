@@ -20,12 +20,12 @@ The client sends each character bit by bit to the server through binary operatio
 
 The server is initialized and displays the PID.
 
-![mini1](images/mini1.png)
+![mini1](minitalk/images/mini1.png)
 
 The client gets the PID and send the string.
 
-![mini1](images/mini2.png)
+![mini1](minitalk/images/mini2.png)
 
 The server received the message correctly and printed it.
 
-![mini1](images/mini3.png)
+![mini1](minitalk/images/mini3.png)
